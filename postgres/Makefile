@@ -19,6 +19,9 @@ run-docker: ## Runs the image in the container
 connect-to-db: ## Connects to the postgres db in the container from the host
 	psql -h 127.0.0.1 -U postgres
 
+hop-on: ## Get on the instance shell
+	docker exec -t -i custom_psql_running /bin/bash
+
 .PHONY: help
 
 help:
