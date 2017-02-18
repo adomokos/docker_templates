@@ -6,20 +6,25 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 .DEFAULT_GOAL := help
 
-INSTANCE=custom_ruby
+IMAGE=custom_ruby
 
 build-db: ## Builds the DB
 	dropdb --if-exists --username $(USER) $(DBNAME)
 	createdb --username $(USER) $(DBNAME)
 
 build-image: ## Builds the Docker image
-	docker build -t $(INSTANCE) .
+	docker build -t $(IMAGE) .
 
 run-container: ## Runs the image in the container
-	docker run -d --name $(INSTANCE)_running $(INSTANCE)
+	docker run -d --name $(IMAGE)_running $(IMAGE)
 
 hop-on: ## Get on the instance shell
-	docker exec -t -i $(INSTANCE)_running /bin/bash
+	docker exec -t -i $(IMAGE)_running /bin/bash
+
+remove: ## Remove both the container and the image
+	docker stop $(IMAGE)_running
+	docker rm $(IMAGE)_running
+	docker rmi $(IMAGE)
 
 .PHONY: help
 
