@@ -10,10 +10,10 @@ build-db: ## Builds the DB
 	dropdb --if-exists --username $(USER) $(DBNAME)
 	createdb --username $(USER) $(DBNAME)
 
-build-docker: ## Builds the Docker image
+build-image: ## Builds the Docker image
 	docker build -t custom_psql .
 
-run-docker: ## Runs the image in the container
+run-container: ## Runs the image in the container
 	docker run -d --name custom_psql_running -p 5432:5432 custom_psql
 
 connect-to-db: ## Connects to the postgres db in the container from the host
