@@ -7,9 +7,9 @@ RUN mkdir -p /var/run/sshd
 RUN gem install bundler
 
 RUN mkdir -p /var/data/app
-RUN alias ll='ls -al'
+RUN echo 'alias ll="ls -al"' >> ~/.bashrc
 
-COPY app/hello.rb /var/data/app/hello.rb
+COPY app/* /var/data/app/
 
 EXPOSE 22
 

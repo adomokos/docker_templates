@@ -1,1 +1,3 @@
-puts 'hello world'
+require 'faker'
+
+puts "Hello #{Faker::Name.name}!"
