@@ -15,11 +15,14 @@ remove: ## Remove the container and image
 run: ## Starts the container
 	docker run \
 		--name $(NAME)_running \
-		--publish 6603:6379 \
+		-p 6379:6379 \
 		-d $(NAME)
 
 run-client: ## Run a client to check redis
 	docker run --link redis:db -i -t ubuntu:14.04 /bin/bash
+
+hop-on: ## Get on the instance shell
+	docker exec -t -i $(NAME)_running /bin/bash
 
 # Example here - https://docs.docker.com/engine/examples/running_redis_service/#create-your-web-application-container
 
