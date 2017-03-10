@@ -20,7 +20,7 @@ remove: ## Remove the container and image
 	docker rmi $(NAME)
 
 start-container: ## Starts the container
-	docker run -d --name custom_psql_running -p 5432:5432 custom_psql
+	docker run -d --name custom_psql_running -p 5432:5432 $(NAME)
 	@$(MAKE) -f $(THIS_FILE) run
 
 run: ## Run the container
