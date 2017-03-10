@@ -1,26 +1,22 @@
-DBUSER=db_user
-DBPASSWD=db_password
-DBNAME=some_db
+NAME=custom_redis
 
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 .DEFAULT_GOAL := help
-NAME=adomokos/redis
-
-build-db: ## Builds the DB
-	dropdb --if-exists --username $(USER) $(DBNAME)
-	createdb --username $(USER) $(DBNAME)
 
 build-image: ## Builds the Docker image
 	docker build -t $(NAME) .
 
 remove: ## Remove the container and image
-	docker stop redis
-	docker rm redis
+	docker stop $(NAME)_running
+	docker rm $(NAME)_running
 	docker rmi $(NAME)
 
 run: ## Starts the container
-	docker run --name redis -d adomokos/redis
+	docker run \
+		--name $(NAME)_running \
+		--publish 6603:6379 \
+		-d $(NAME)
 
 run-client: ## Run a client to check redis
 	docker run --link redis:db -i -t ubuntu:14.04 /bin/bash
