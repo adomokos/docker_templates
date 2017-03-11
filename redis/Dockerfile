@@ -1,11 +1,8 @@
-FROM smebberson/alpine-base:1.0.0
-MAINTAINER Scott Mebberson <scott@scottmebberson.com>
+FROM redis:3.2-alpine
 
 # Install redis
-RUN echo "http://dl-4.alpinelinux.org/alpine/v3.1/main" >> /etc/apk/repositories && \
-    apk add --update redis=2.8.23-r0 && \
+RUN apk --update add bash vim && \
     rm -rf /var/cache/apk/* && \
-    mkdir /data && \
     chown -R redis:redis /data && \
     echo -e "include /etc/redis-local.conf\n" >> /etc/redis.conf
 
