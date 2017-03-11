@@ -24,6 +24,9 @@ run-client: ## Run a client to check redis
 hop-on: ## Get on the instance shell
 	docker exec -t -i $(NAME)_running /bin/ash
 
+connect: ## Connects to redis in the container from the host
+	redis-cli -h 127.0.0.1
+
 # Example here - https://docs.docker.com/engine/examples/running_redis_service/#create-your-web-application-container
 
 .PHONY: help
