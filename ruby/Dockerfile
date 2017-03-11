@@ -6,10 +6,16 @@ RUN apt-get install -y openssh-server
 RUN mkdir -p /var/run/sshd
 RUN gem install bundler
 
-RUN mkdir -p /var/data/app
+ENV INSTALL_PATH /var/data/app
+
+RUN mkdir -p $INSTALL_PATH
 RUN echo 'alias ll="ls -al"' >> ~/.bashrc
 
-COPY app/* /var/data/app/
+COPY app/* $INSTALL_PATH/
+
+WORKDIR $INSTALL_PATH
+
+RUN bundle install --binstubs --path vendor/bundle
 
 EXPOSE 22
 

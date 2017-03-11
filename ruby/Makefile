@@ -15,7 +15,7 @@ build-db: ## Builds the DB
 build-image: ## Builds the Docker image
 	docker build -t $(IMAGE) .
 
-run-container: ## Runs the image in the container
+run: ## Runs the image in the container
 	docker run -d --name $(IMAGE)_running $(IMAGE)
 
 hop-on: ## Get on the instance shell
