@@ -1,5 +1,5 @@
 # Dockerfile
-FROM ruby:latest
+FROM ruby:2.4-slim
 
 RUN apt-get update
 RUN apt-get install -y openssh-server
