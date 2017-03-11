@@ -16,10 +16,10 @@ build-image: ## Builds the Docker image
 	docker build -t $(IMAGE) .
 
 run: ## Runs the image in the container
-	docker run -d --name $(IMAGE)_running $(IMAGE)
+	docker run -d --name $(IMAGE)_running $(IMAGE) tail -f /dev/null
 
 hop-on: ## Get on the instance shell
-	docker exec -t -i $(IMAGE)_running /bin/bash
+	docker exec -t -i $(IMAGE)_running /bin/ash
 
 remove: ## Remove both the container and the image
 	docker stop $(IMAGE)_running
