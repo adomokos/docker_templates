@@ -1,12 +1,9 @@
-DBUSER=db_user
-DBPASSWD=db_password
-DBNAME=some_db
+IMAGE=custom_ruby
+NETWORK_NAME=my_custom_network
 
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 .DEFAULT_GOAL := help
-
-IMAGE=custom_ruby
 
 build-db: ## Builds the DB
 	dropdb --if-exists --username $(USER) $(DBNAME)
@@ -17,6 +14,13 @@ build-image: ## Builds the Docker image
 
 run: ## Runs the image in the container
 	docker run -d --name $(IMAGE)_running $(IMAGE) tail -f /dev/null
+
+run-in-network: ## Starts the container in the network
+	docker run -d \
+		--net $(NETWORK_NAME) \
+		--name $(IMAGE)_running \
+		$(IMAGE) \
+		tail -f /dev/null
 
 hop-on: ## Get on the instance shell
 	docker exec -t -i $(IMAGE)_running /bin/bash

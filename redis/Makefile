@@ -1,4 +1,5 @@
 NAME=custom_redis
+NETWORK_NAME=my_custom_network
 
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
@@ -17,6 +18,13 @@ run: ## Starts the container
 		--name $(NAME)_running \
 		--publish 6379:6379 \
 		-d $(NAME)
+
+run-in-network: ## Starts the container in the network
+	docker run -d \
+		--name $(NAME)_running \
+		--net $(NETWORK_NAME) \
+		-p 6379:6379 \
+		$(NAME)
 
 run-client: ## Run a client to check redis
 	docker run --link redis:db -i -t ubuntu:14.04 /bin/bash
