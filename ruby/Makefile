@@ -19,7 +19,7 @@ run: ## Runs the image in the container
 	docker run -d --name $(IMAGE)_running $(IMAGE) tail -f /dev/null
 
 hop-on: ## Get on the instance shell
-	docker exec -t -i $(IMAGE)_running /bin/ash
+	docker exec -t -i $(IMAGE)_running /bin/bash
 
 remove: ## Remove both the container and the image
 	docker stop $(IMAGE)_running
