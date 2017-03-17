@@ -13,7 +13,8 @@ build-image: ## Builds the Docker image
 	docker build -t $(IMAGE) .
 
 run: ## Runs the image in the container
-	docker run -d --name $(IMAGE)_running $(IMAGE) tail -f /dev/null
+	docker run -d -v ~/Programming/Docker/templates/ruby/app/:/var/data/app \
+		--name $(IMAGE)_running $(IMAGE) tail -f /dev/null
 
 run-in-network: ## Starts the container in the network
 	docker run -d \
