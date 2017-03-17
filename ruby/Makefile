@@ -26,6 +26,14 @@ run-in-network: ## Starts the container in the network
 hop-on: ## Get on the instance shell
 	docker exec -t -i $(IMAGE)_running /bin/bash
 
+compose-up: ## Docker compose up
+	docker-compose up -d
+
+compose-down: ## Stop the environment
+	docker-compose down
+	# docker-compose down --volumes # destroys the volume as well
+
+
 remove: ## Remove both the container and the image
 	docker stop $(IMAGE)_running
 	docker rm $(IMAGE)_running
